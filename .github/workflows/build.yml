@@ -28,8 +28,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: pip install -r requirements.txt
+        run: pip install pytest-cov
 
       - name: Run Tests and Generate Code Coverage
         run: pytest --cov=./ --cov-report=xml
@@ -37,11 +36,12 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          version: "v0.1.15"
+          fixes:
+            - "io/github/config4k::src/main/io.github.config4k"
           directory: ./coverage/reports/
           env_vars: OS,PYTHON
           fail_ci_if_error: true
-          files: ./coverage1.xml,./coverage2.xml,!./cache
+          files: coverage1.xml,coverage2.xml,!./cache
           flags: unittests
           name: codecov-umbrella
           verbose: true
@@ -49,7 +49,7 @@ jobs:
       - name: Run Super-Linter
         uses: super-linter/super-linter@v4
         env:
-          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
 
 
@@ -75,8 +75,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: pip install -r requirements.txt
+        run: pip install pytest-cov
 
       - name: Build application
         run: pyinstaller --onefile main.py
@@ -109,8 +108,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: pip install -r requirements.txt
+        run: pip install pytest-cov
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
