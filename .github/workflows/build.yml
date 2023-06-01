@@ -36,11 +36,11 @@ jobs:
       - name: Special install
         run: pip install pyinstaller
       - name: Run linting and code analysis
-          run: |
-            pip install pylint flake8 black
-            pylint your_module.py
-            flake8 your_module.py
-            black --check your_module.py
+        run: |
+          pip install pylint flake8 black
+          pylint your_module.py
+          flake8 your_module.py
+          black --check your_module.py
 
 #      - name: Run Super-Linter
 #        uses: super-linter/super-linter@v4
