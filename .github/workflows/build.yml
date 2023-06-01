@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -35,17 +35,24 @@ jobs:
         run: pytest
       - name: Special install
         run: pip install pyinstaller
+      - name: Run linting and code analysis
+          run: |
+            pip install pylint flake8 black
+            pylint your_module.py
+            flake8 your_module.py
+            black --check your_module.py
 
-      - name: Run Super-Linter
-        uses: super-linter/super-linter@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
+#      - name: Run Super-Linter
+#        uses: super-linter/super-linter@v4
+#        env:
+#          VALIDATE_ALL_CODEBASE: false
+#          DEFAULT_BRANCH: main
+
 
 
   build:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -79,7 +86,7 @@ jobs:
 
   artifacts:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
