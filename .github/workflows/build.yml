@@ -27,9 +27,9 @@ jobs:
 #          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
 #          restore-keys: |
 #            ${{ runner.os }}-pip-
-#      - name: Install dependencies
-##        if: steps.cache.outputs.cache-hit != 'true'
-#        run: pip install -r requirements.txt
+      - name: Install dependencies
+#        if: steps.cache.outputs.cache-hit != 'true'
+        run: pip install -r requirements.txt
 
       - name: Run Tests
         run: pytest
@@ -71,8 +71,8 @@ jobs:
 #          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
 #          restore-keys: |
 #            ${{ runner.os }}-pip-
-#      - name: Install dependencies
-#        run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Build application
         run: pyinstaller --onefile main.py
