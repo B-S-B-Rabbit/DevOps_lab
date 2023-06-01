@@ -74,14 +74,14 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build application
-        run: pyinstaller --onefile main.py
+        run: pyinstaller --onefile --name main.exe main.py
       - name: List files in working directory
         run: ls -R
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: application
-          path: ./dist/main
+          path: ./dist/main.exe
           if-no-files-found: error
 #      - name: Upload Release Asset
 #        uses: adityak74/google-drive-upload-git-action@main
