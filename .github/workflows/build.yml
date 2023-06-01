@@ -72,17 +72,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: pip install -r requirements.txt
 
       - name: Build application
         run: pyinstaller --onefile main.py
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: application
-          path: dist/main.exe
 
   artifacts:
     needs: build
