@@ -72,7 +72,8 @@ jobs:
 #            ${{ runner.os }}-pip-
       - name: Install dependencies
         run: pip install -r requirements.txt
-
+      - name: Create dist directory
+        run: mkdir -p dist
       - name: Build application
         run: pyinstaller --onefile main.py
         working-directory: ${{ github.workspace }}/dist
@@ -87,7 +88,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "dist/main.exe"
+          filename: "main.exe"
           folderId: ${{ secrets.folderId }}
           overwrite: "true" # optional boolean
 
