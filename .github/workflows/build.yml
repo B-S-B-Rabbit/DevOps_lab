@@ -24,11 +24,11 @@ jobs:
 
       - name: Run Tests
         run: pytest
-#      - name: Run Super-Linter
-#        uses: super-linter/super-linter@v4
-#        env:
-#          VALIDATE_ALL_CODEBASE: false
-#          DEFAULT_BRANCH: main
+      - name: Run Super-Linter
+        uses: super-linter/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
 
 
 
