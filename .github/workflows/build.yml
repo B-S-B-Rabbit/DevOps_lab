@@ -55,16 +55,11 @@ jobs:
           name: application
           path: ./dist/main
           if-no-files-found: error
-      - name: Archive
-        run: |
-        sudo apt-get update
-        sudo apt-get install zip
-        zip -r archive.zip dist/main
       - name: Upload Release Asset
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "archive.zip"
+          filename: "dist/main"
           folderId: ${{ secrets.folderId }}
           overwrite: "true"
           mirrorDirectoryStructure: "true"
