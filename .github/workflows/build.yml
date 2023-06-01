@@ -108,11 +108,11 @@ jobs:
           name: application
           path: dist/main.exe
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
+        uses: adityak74/google-drive-upload-git-action@main
         with:
-          asset_path: dist/main.exe
-          asset_name: application.zip
-          tag_name: A1.0  # замените на ваш тег релиза
-
+          credentials: ${{ secrets.credentials }}
+          filename: "application.zip"
+          folderId: ${{ secrets.folderId }}
+          overwrite: "true" # optional boolean
 
 
