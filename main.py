@@ -53,7 +53,7 @@ def main(todo_file):
             print("Here your list of tasks:")
             list_tasks(todo_file)
             task = input("Enter the number of task to remove from this list: ")
-            remove_task(task,todo_file)
+            remove_task(task, todo_file)
             print("The task was successfully removed")
         elif choice == "3":
             list_tasks(todo_file)
