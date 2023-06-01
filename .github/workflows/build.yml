@@ -78,15 +78,15 @@ jobs:
         run: pyinstaller --onefile main.py
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: application
           path: dist/main.exe
-      - name: Upload Release Asset
-        uses: adityak74/google-drive-upload-git-action@main
-        with:
-          credentials: ${{ secrets.credentials }}
-          filename: "dist/main.exe"
-          folderId: ${{ secrets.folderId }}
-          overwrite: "true" # optional boolean
+#      - name: Upload Release Asset
+#        uses: adityak74/google-drive-upload-git-action@main
+#        with:
+#          credentials: ${{ secrets.credentials }}
+#          filename: "dist/main.exe"
+#          folderId: ${{ secrets.folderId }}
+#          overwrite: "true" # optional boolean
 
