@@ -51,7 +51,6 @@ jobs:
 
 
   build-upload:
-    needs: test
     runs-on: ubuntu-latest
 
     steps:
