@@ -31,15 +31,15 @@ jobs:
       - name: Run Tests and Generate Code Coverage
         run: pytest --cov=./ --cov-report=xml
       - name: Upload coverage to Codecov
-          uses: codecov/codecov-action@v3
-          with:
-            directory: ./coverage/reports/
-            env_vars: OS,PYTHON
-            fail_ci_if_error: true
-            files: ./coverage1.xml,./coverage2.xml,!./cache
-            flags: unittests
-            name: codecov-umbrella
-            verbose: true
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./coverage/reports/
+          env_vars: OS,PYTHON
+          fail_ci_if_error: true
+          files: ./coverage1.xml,./coverage2.xml,!./cache
+          flags: unittests
+          name: codecov-umbrella
+          verbose: true
 
       - name: Run Super-Linter
         uses: super-linter/super-linter@v4
