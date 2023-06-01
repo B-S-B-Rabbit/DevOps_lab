@@ -20,7 +20,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install pytest
 
       - name: Run Tests
         run: pytest
@@ -47,7 +47,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install pytest
 
       - name: Build application
         run: pyinstaller --onefile main.py
@@ -61,7 +61,8 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "./dist/main"
+          filename: "dist/main"
           folderId: ${{ secrets.folderId }}
-          overwrite: "true" # optional boolean
+          overwrite: "true"
+          mirrorDirectoryStructure: "true"
 
