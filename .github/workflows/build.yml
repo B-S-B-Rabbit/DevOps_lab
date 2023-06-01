@@ -50,7 +50,7 @@ jobs:
 
 
 
-  build and upload:
+  build-upload:
     needs: test
     runs-on: ubuntu-latest
 
