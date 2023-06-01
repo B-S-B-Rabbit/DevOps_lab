@@ -7,51 +7,52 @@ on:
   workflow_dispatch:
 
 jobs:
-#  test:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Python 3.9
-#        uses: actions/setup-python@v4
-#        with:
-#          python-version: '3.9'
-#
-##      - name: Restore dependencies cache
-##        uses: actions/cache@v2
-##        id:   cache
-##        with:
-##          path: ~/.cache/pip
-##          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-##          restore-keys: |
-##            ${{ runner.os }}-pip-
-#      - name: Install dependencies
-##        if: steps.cache.outputs.cache-hit != 'true'
-#        run: pip install -r requirements.txt
-#
-#      - name: Run Tests
-#        run: pytest
-#      - name: Special install
-#        run: pip install pyinstaller
-##      - name: Run linting and code analysis
-##        run: |
-##          pip install pylint flake8 black
-##          pylint main.py
-##          flake8 main.py
-##          black --check main.py
-#
-##      - name: Run Super-Linter
-##        uses: super-linter/super-linter@v4
-##        env:
-##          VALIDATE_ALL_CODEBASE: false
-##          DEFAULT_BRANCH: main
-
-
-
-  build-upload:
+  test:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+#      - name: Restore dependencies cache
+#        uses: actions/cache@v2
+#        id:   cache
+#        with:
+#          path: ~/.cache/pip
+#          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+#          restore-keys: |
+#            ${{ runner.os }}-pip-
+      - name: Install dependencies
+#        if: steps.cache.outputs.cache-hit != 'true'
+        run: pip install -r requirements.txt
+
+      - name: Run Tests
+        run: pytest
+      - name: Special install
+        run: pip install pyinstaller
+#      - name: Run linting and code analysis
+#        run: |
+#          pip install pylint flake8 black
+#          pylint main.py
+#          flake8 main.py
+#          black --check main.py
+
+      - name: Run Super-Linter
+        uses: super-linter/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+
+
+
+  build:
+    needs: test
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -74,20 +75,43 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build application
-        run: pyinstaller --onefile --name main.exe main.py
-      - name: List files in working directory
-        run: ls -R
+        run: pyinstaller --onefile main.py
+
+  artifacts:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+#      - name: Restore dependencies cache
+#        uses: actions/cache@v2
+#        id:   cache
+#        with:
+#          path: ~/.cache/pip
+#          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+#          restore-keys: |
+#            ${{ runner.os }}-pip-
+      - name: Install dependencies
+#        if: steps.cache.outputs.cache-hit != 'true'
+        run: pip install -r requirements.txt
+
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: application
-          path: ./dist/main.exe
+          path: dist/main.exe
           if-no-files-found: error
-#      - name: Upload Release Asset
-#        uses: adityak74/google-drive-upload-git-action@main
-#        with:
-#          credentials: ${{ secrets.credentials }}
-#          filename: "./build/main"
-#          folderId: ${{ secrets.folderId }}
-#          overwrite: "true" # optional boolean
-
+      - name: Upload Release Asset
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.credentials }}
+          filename: "./build/main"
+          folderId: ${{ secrets.folderId }}
+          overwrite: "true" # optional boolean
