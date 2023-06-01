@@ -82,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: application
-          path: ./build/main
+          path: ./dist/main
           if-no-files-found: error
 #      - name: Upload Release Asset
 #        uses: adityak74/google-drive-upload-git-action@main
