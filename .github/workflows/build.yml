@@ -82,13 +82,13 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: application
-          path: main.exe
+          path: ./build/main.exe
           if-no-files-found: error
       - name: Upload Release Asset
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "main.exe"
+          filename: "./build/main.exe"
           folderId: ${{ secrets.folderId }}
           overwrite: "true" # optional boolean
 
