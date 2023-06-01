@@ -23,7 +23,10 @@ def add_task(task, todo_file):
 
 def remove_task(task, todo_file):
     tasks = load_tasks(todo_file)
-    tasks.pop(int(task) - 1)
+    try:
+        tasks.pop(int(task) - 1)
+    except IndexError:
+        return "IndexError"
     save_tasks(tasks, todo_file)
 
 

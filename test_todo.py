@@ -95,9 +95,7 @@ def test_remove_task_raises_index_error(todo_file):
         json.dump(tasks_data, f)
 
     task_to_remove = 4
-
-    with pytest.raises(IndexError):
-        remove_task(task_to_remove, todo_file)
+    assert remove_task(task_to_remove, todo_file) == "IndexError"
 
 
 if __name__ == "__main__":
