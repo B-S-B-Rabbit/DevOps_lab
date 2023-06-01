@@ -107,10 +107,12 @@ jobs:
         with:
           name: application
           path: dist/main.exe
-      - name: Create Release
-        uses: actions/create-release@v1
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          tag_name: A1.0  # тег релиза
-          release_name: Uploading artifacts  # заголовок релиза
-          body: Uploading artifacts for release  # описание релиза
+          asset_path: dist/main.exe
+          asset_name: application.zip
+          tag_name: A1.0  # замените на ваш тег релиза
+
+
 
