@@ -52,8 +52,7 @@ jobs:
   build-upload:
     needs: test
     runs-on: ubuntu-latest
-    run:
-      working-directory: ./dist
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -76,12 +75,13 @@ jobs:
 
       - name: Build application
         run: pyinstaller --onefile main.py
+        working-directory: ${{ github.workspace }}/dist
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: application
-          path: dist/main.exe
+          path: main.exe
           if-no-files-found: error
       - name: Upload Release Asset
         uses: adityak74/google-drive-upload-git-action@main
