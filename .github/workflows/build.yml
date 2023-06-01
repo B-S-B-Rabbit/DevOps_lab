@@ -33,7 +33,7 @@ jobs:
 
       - name: Run Tests
         run: pytest
-        
+
       - name: Run Super-Linter
         uses: super-linter/super-linter@v4
         env:
