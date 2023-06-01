@@ -19,16 +19,16 @@ jobs:
         with:
           python-version: '3.9'
 
-#      - name: Restore dependencies cache
-#        uses: actions/cache@v2
-#        id:   cache
-#        with:
-#          path: ~/.cache/pip
-#          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-pip-
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        id:   cache
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install dependencies
-#        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: pip install -r requirements.txt
 
       - name: Run Tests
@@ -50,35 +50,7 @@ jobs:
 
 
 
-  build:
-    needs: test
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-#      - name: Restore dependencies cache
-#        uses: actions/cache@v2
-#        id:   cache
-#        with:
-#          path: ~/.cache/pip
-#          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-pip-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Build application
-        run: pyinstaller --onefile main.py
-
-  artifacts:
-    needs: build
+  build-upload:
     runs-on: ubuntu-latest
 
     steps:
@@ -90,23 +62,24 @@ jobs:
         with:
           python-version: '3.9'
 
-#      - name: Restore dependencies cache
-#        uses: actions/cache@v2
-#        id:   cache
-#        with:
-#          path: ~/.cache/pip
-#          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-pip-
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        id:   cache
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install dependencies
-#        if: steps.cache.outputs.cache-hit != 'true'
         run: pip install -r requirements.txt
 
+      - name: Build application
+        run: pyinstaller --onefile main.py
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: application
-          path: dist/main.exe
+          path: ./dist/main
           if-no-files-found: error
       - name: Upload Release Asset
         uses: adityak74/google-drive-upload-git-action@main
@@ -115,3 +88,4 @@ jobs:
           filename: "./build/main"
           folderId: ${{ secrets.folderId }}
           overwrite: "true" # optional boolean
+
