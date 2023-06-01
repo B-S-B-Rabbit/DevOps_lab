@@ -24,8 +24,6 @@ jobs:
 
       - name: Run Tests
         run: pytest
-      - name: Special install
-        run: pip install pyinstaller
       - name: Run Super-Linter
         uses: super-linter/super-linter@v4
         env:
@@ -47,7 +45,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install pytest
+        run: pip install pyinstaller
 
       - name: Build application
         run: pyinstaller --onefile main.py
