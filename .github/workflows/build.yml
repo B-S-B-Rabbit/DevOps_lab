@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -72,11 +73,9 @@ jobs:
 #            ${{ runner.os }}-pip-
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Create dist directory
-        run: mkdir -p dist
+
       - name: Build application
         run: pyinstaller --onefile main.py
-        working-directory: ${{ github.workspace }}/dist
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
