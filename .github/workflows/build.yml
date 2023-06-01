@@ -61,7 +61,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "./build/main"
+          filename: "./dist/main"
           folderId: ${{ secrets.folderId }}
           overwrite: "true" # optional boolean
 
