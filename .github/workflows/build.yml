@@ -48,7 +48,7 @@ jobs:
         run: pip install pyinstaller
 
       - name: Build application
-        run: pyinstaller --onefile main.py
+        run: pyinstaller --noupx --onedir --onefile --windowed main.py
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
