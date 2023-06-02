@@ -46,7 +46,11 @@ jobs:
 
       - name: Install dependencies
         run: pip install pyinstaller
-
+      - name: Archive
+        run: |
+          sudo apt-get update
+          sudo apt-get install zip
+          zip -r archive.zip *
       - name: Build application
         run: pyinstaller --noupx --onedir --onefile --windowed main.py
       - name: Upload artifacts
@@ -59,7 +63,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "dist/main"
+          filename: "archive.zip"
           folderId: ${{ secrets.folderId }}
           overwrite: "true"
           mirrorDirectoryStructure: "true"
