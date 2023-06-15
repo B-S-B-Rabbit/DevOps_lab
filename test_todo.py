@@ -71,7 +71,7 @@ def test_list_tasks(todo_file, capsys):
     list_tasks(todo_file)
 
     captured = capsys.readouterr()
-    assert captured.out == "1. Task 2\n2. Task 2\n3. Task 3\n"
+    assert captured.out == "1. Task 1\n2. Task 2\n3. Task 3\n"
 
 
 def test_remove_task_raises_index_error(todo_file):
