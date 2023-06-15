@@ -87,7 +87,6 @@ jobs:
 #          mirrorDirectoryStructure: "true"
 
   deploy-self-hosted:
-    needs: build-upload
     runs-on: self-hosted
     steps:
       - name: Checkout repository
