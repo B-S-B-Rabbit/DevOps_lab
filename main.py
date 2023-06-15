@@ -42,17 +42,24 @@ def main(todo_file):
     print("2. Remove task")
     print("3. List tasks")
     print("4. Exit")
-
+    psevdo_choice = ["1", "Hello, world", "3", "2", "1", "4"]
+    count = 0
     while True:
-        choice = input("Enter your choice: ")
+        print("Enter your choice: ")
+        choice = psevdo_choice[count]
+        count += 1
         if choice == "1":
-            task = input("Enter task: ")
+            print("Enter task: ")
+            task = psevdo_choice[count]
+            count += 1
             add_task(task, todo_file)
             print("The task was successfully added")
         elif choice == "2":
             print("Here your list of tasks:")
             list_tasks(todo_file)
-            task = input("Enter the number of task to remove from this list: ")
+            print("Enter the number of task to remove from this list: ")
+            task = psevdo_choice[count]
+            count += 1
             remove_task(task, todo_file)
             print("The task was successfully removed")
         elif choice == "3":

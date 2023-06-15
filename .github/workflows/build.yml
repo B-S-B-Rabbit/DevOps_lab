@@ -53,6 +53,7 @@ jobs:
           zip -r archive.zip *
       - name: Build application
         run: pyinstaller --noupx --onedir --onefile --windowed main.py
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Build Docker image
@@ -84,23 +85,16 @@ jobs:
           folderId: ${{ secrets.folderId }}
           overwrite: "true"
           mirrorDirectoryStructure: "true"
+
+  deploy-sef-hosted:
+    needs: build-upload
+    runs-on: self-hosted
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: pull docker image
         run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/myapp
       - name: run the container
         run: docker run ${{ secrets.DOCKERHUB_USERNAME }}/myapp
-#
-#  deploy-sef-hosted:
-#    needs: build-upload
-#    runs-on: self-hosted
-#    steps:
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@v1
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_TOKEN }}
-#      - name: checkout repo
-#        uses: actions/checkout@v3
-#      - name: pull docker image
-#        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/myapp
-#      - name: run the container
-#        run: docker run -it ${{ secrets.DOCKERHUB_USERNAME }}/myapp
