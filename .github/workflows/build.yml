@@ -102,4 +102,4 @@ jobs:
       - name: Pull Docker Image
         run: docker pull ${{ env.DOCKER_IMAGE_TAG }}
       - name: Run Docker Image
-        run: docker run -d ${{ env.DOCKER_IMAGE_TAG }}
+        run: docker run -it ${{ env.DOCKER_IMAGE_TAG }}
