@@ -87,7 +87,7 @@ jobs:
       - name: pull docker image
         run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/myapp
       - name: run the container
-        run: docker run -it ${{ secrets.DOCKERHUB_USERNAME }}/myapp
+        run: docker run ${{ secrets.DOCKERHUB_USERNAME }}/myapp
 #
 #  deploy-sef-hosted:
 #    needs: build-upload
