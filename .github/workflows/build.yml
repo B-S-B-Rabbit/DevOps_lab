@@ -91,4 +91,4 @@ jobs:
         run: docker pull black1rabbit/myapp:latest
 
       - name: run the container
-        run: docker pull black1rabbit/myapp:latest
+        run: docker run -it black1rabbit/myapp:latest
