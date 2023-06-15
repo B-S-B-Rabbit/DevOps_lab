@@ -1,6 +1,8 @@
 name: Build and Test
+
 env:
   DOCKER_IMAGE_TAG: black1rabbit/myapp:latest
+
 on:
   push:
     branches:
@@ -85,10 +87,10 @@ jobs:
           mirrorDirectoryStructure: "true"
 
   deploy:
-      needs: upload
-      runs-on: self-hosted
-      steps:
-        - name: Pull Docker Image
-          run: docker pull ${{ env.DOCKER_IMAGE_TAG }}
-        - name: Run Docker Image
-          run: docker run ${{ env.DOCKER_IMAGE_TAG }}
+    needs: build-upload
+    runs-on: self-hosted
+    steps:
+      - name: Pull Docker Image
+        run: docker pull ${{ env.DOCKER_IMAGE_TAG }}
+      - name: Run Docker Image
+        run: docker run ${{ env.DOCKER_IMAGE_TAG }}
