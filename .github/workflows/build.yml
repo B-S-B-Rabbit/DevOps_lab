@@ -85,7 +85,7 @@ jobs:
           folderId: ${{ secrets.folderId }}
           overwrite: "true"
           mirrorDirectoryStructure: "true"
-
+          
   deploy:
     needs: build-upload
     runs-on: self-hosted
