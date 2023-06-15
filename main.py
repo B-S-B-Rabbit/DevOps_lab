@@ -45,11 +45,11 @@ def main(todo_file):
     psevdo_choice = ["1", "Hello, world", "3", "2", "1", "4"]
     count = 0
     while True:
-        print("Enter your choice: ")
+        print("Enter your choice: %s" % psevdo_choice[count])
         choice = psevdo_choice[count]
         count += 1
         if choice == "1":
-            print("Enter task: ")
+            print("Enter task: %s" % psevdo_choice[count])
             task = psevdo_choice[count]
             count += 1
             add_task(task, todo_file)
@@ -57,7 +57,7 @@ def main(todo_file):
         elif choice == "2":
             print("Here your list of tasks:")
             list_tasks(todo_file)
-            print("Enter the number of task to remove from this list: ")
+            print("Enter the number of task to remove from this list: %s" % psevdo_choice[count])
             task = psevdo_choice[count]
             count += 1
             remove_task(task, todo_file)
