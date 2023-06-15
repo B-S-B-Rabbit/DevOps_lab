@@ -88,7 +88,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: pull docker image
-        run: docker pull black1rabbit/myapp:latest
+        run: docker pull black1rabbit/myapp
 
       - name: run the container
-        run: docker run -it black1rabbit/myapp:latest
+        run: docker run -it black1rabbit/myapp
