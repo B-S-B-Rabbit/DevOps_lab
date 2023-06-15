@@ -83,14 +83,12 @@ jobs:
           overwrite: "true"
           mirrorDirectoryStructure: "true"
 
-  deploy:
-    runs-on: ubuntu-latest
-
+  deploy-sef-hosted:
+    needs: build-upload
+    runs-on: self-hosted
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: pull docker image
+        run: docker pull black1rabbit/myapp:latest
 
-      - name: Set up Docker Compose
-        run: |
-          sudo apt-get install -y docker-compose
-          sudo docker-compose up -d
+      - name: run the container
+        run: docker pull black1rabbit/myapp:latest
