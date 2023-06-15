@@ -46,10 +46,13 @@ jobs:
 
       - name: Install dependencies
         run: pip install pyinstaller
-
+      - name: Archive
+        run: |
+          sudo apt-get update
+          sudo apt-get install zip
+          zip -r archive.zip *
       - name: Build application
-        run: pyinstaller --onefile main.py
-
+        run: pyinstaller --noupx --onedir --onefile --windowed main.py
       - name: Build Docker image
         run: docker build -t myapp .
 
@@ -64,6 +67,7 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -74,8 +78,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "dist/main"
+          filename: "archive.zip"
           folderId: ${{ secrets.folderId }}
           overwrite: "true"
           mirrorDirectoryStructure: "true"
-
