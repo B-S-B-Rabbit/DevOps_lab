@@ -91,10 +91,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Log in to Docker Hub
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-
+        
       - name: Pull Docker image
         run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/myapp
 
